@@ -10,5 +10,4 @@ public class UtnApplication {
 		SpringApplication.run(UtnApplication.class, args);
 		System.out.println("Funciona");
 	}
-
 }
