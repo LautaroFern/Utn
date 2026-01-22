@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: .
+    build: ./backend
     container_name: becas-backend
     ports:
       - "8080:8080"
