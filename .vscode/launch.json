@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-UtnApplication<Utn>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.Becas.Utn.UtnApplication",
+            "projectName": "Utn",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
