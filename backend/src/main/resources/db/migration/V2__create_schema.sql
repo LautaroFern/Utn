@@ -4,6 +4,11 @@ CREATE TYPE estado_postulacion AS ENUM(
     'RECHAZADA'
 );
 
+CREATE TYPE estado_convocatoria AS ENUM(
+    'ABIERTA',
+    'CERRADA'
+);
+
 CREATE TABLE usuario (
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -64,6 +69,28 @@ CREATE TABLE familiar (
     FOREIGN KEY (alumno_id) REFERENCES alumno(id)
 );
 
+CREATE TABLE beca (
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    descripcion TEXT NOT NULL,
+    /*TIPO DE BECA (BASE-BIS)*/
+    tipo_beca VARCHAR(20) NOT NULL,
+    /*CASO DE SER UNA BECA BIS REQUERIRA QUE EL ESTUDIANTE ESTE CURSANDO UNA INGENIERIA*/
+    requiere_ingenieria BOOLEAN NOT NULL
+);
+
+CREATE TABLE convocatoria (
+    id BIGSERIAL PRIMARY KEY,
+    beca_id BIGINT NOT NULL,
+    anio INT NOT NULL,
+    fecha_abierto TIMESTAMPTZ NOT NULL,
+    fecha_cerrado TIMESTAMPTZ NOT NULL, 
+    descripcion VARCHAR(200),
+    estado estado_convocatoria NOT NULL,
+    FOREIGN KEY(beca_id) REFERENCES beca(id),
+    UNIQUE(beca_id, anio)
+);
+
 CREATE TABLE estado_academico (
     id BIGSERIAL PRIMARY KEY,
     alumno_id BIGINT NOT NULL,
@@ -92,12 +119,6 @@ CREATE TABLE final_planificado(
     nivel VARCHAR (50) NOT NULL,
     mes_mesa VARCHAR (20) NOT NULL,
     FOREIGN KEY (alumno_id) REFERENCES alumno(id)
-);
-
-CREATE TABLE convocatoria (
-    id BIGSERIAL PRIMARY KEY,
-    anio INT NOT NULL,
-    descripcion VARCHAR(200)
 );
 
 /*TABLAS PIVOT*/
