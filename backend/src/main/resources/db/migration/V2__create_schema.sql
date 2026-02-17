@@ -11,6 +11,8 @@ CREATE TYPE estado_convocatoria AS ENUM(
 
 CREATE TABLE usuario (
     id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL, /*evitar futuros errores por la ñ */
     activo BOOLEAN NOT NULL DEFAULT TRUE
@@ -18,9 +20,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE alumno (
     id BIGSERIAL PRIMARY KEY,
-    usuario_id BIGINT UNIQUE,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR(100) NOT NULL,
+    usuario_id BIGINT UNIQUE, 
     dni VARCHAR(20) UNIQUE NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
@@ -91,42 +91,11 @@ CREATE TABLE convocatoria (
     UNIQUE(beca_id, anio)
 );
 
-CREATE TABLE estado_academico (
-    id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
-    materias_aprobadas INT NOT NULL,
-    materias_cursando INT NOT NULL,
-    anio_ingreso INT NOT NULL,
-    promedio DECIMAL(4,2) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id)
-);
-
-CREATE TABLE materia_cursando(
-    id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
-    nombre VARCHAR (100) NOT NULL,
-    /* NIVEL EN EL QUE SE ENCUENTRA LA MATERIA QUE ESTA CURSANDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
-    nivel VARCHAR (50) NOT NULL,
-    regimen VARCHAR (100) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id)
-);
-
-CREATE TABLE final_planificado(
-    id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
-    nombre_materia VARCHAR (100) NOT NULL,
-    /* NIVEL EN EL QUE SE ENCUENTRA EL FINAL QUE ESTA RINDIENDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
-    nivel VARCHAR (50) NOT NULL,
-    mes_mesa VARCHAR (20) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id)
-);
-
-/*TABLAS PIVOT*/
+/*TABLA PIVOT Y REGISTRO*/
 
 CREATE TABLE alumno_beca(
     id BIGSERIAL PRIMARY KEY,
     alumno_id BIGINT NOT NULL,
-    beca_id BIGINT NOT NULL,
     convocatoria_id BIGINT NOT NULL,
     fecha_postulacion DATE NOT NULL,
 
@@ -135,8 +104,43 @@ CREATE TABLE alumno_beca(
     observaciones TEXT,
 
     FOREIGN KEY (alumno_id) REFERENCES alumno(id),
-    FOREIGN KEY (beca_id) REFERENCES beca(id),
     FOREIGN KEY (convocatoria_id) REFERENCES convocatoria(id),
 
-    UNIQUE(alumno_id, beca_id, convocatoria_id)
+    UNIQUE(alumno_id, convocatoria_id)
+);
+
+CREATE TABLE estado_academico (
+    id BIGSERIAL PRIMARY KEY,
+    alumno_id BIGINT NOT NULL,
+    alumno_beca_id BIGINT NOT NULL,
+    materias_aprobadas INT NOT NULL,
+    materias_cursando INT NOT NULL,
+    anio_ingreso INT NOT NULL,
+    promedio DECIMAL(4,2) NOT NULL,
+    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
+        FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
+);
+
+CREATE TABLE materia_cursando(
+    id BIGSERIAL PRIMARY KEY,
+    alumno_id BIGINT NOT NULL,
+    alumno_beca_id BIGINT NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
+    /* NIVEL EN EL QUE SE ENCUENTRA LA MATERIA QUE ESTA CURSANDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
+    nivel VARCHAR (50) NOT NULL,
+    regimen VARCHAR (100) NOT NULL,
+    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
+        FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
+);
+
+CREATE TABLE final_planificado(
+    id BIGSERIAL PRIMARY KEY,
+    alumno_id BIGINT NOT NULL,
+    alumno_beca_id BIGINT NOT NULL,
+    nombre_materia VARCHAR (100) NOT NULL,
+    /* NIVEL EN EL QUE SE ENCUENTRA EL FINAL QUE ESTA RINDIENDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
+    nivel VARCHAR (50) NOT NULL,
+    mes_mesa VARCHAR (20) NOT NULL,
+    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
+    FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
 );
