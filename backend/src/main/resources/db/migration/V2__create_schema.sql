@@ -9,18 +9,25 @@ CREATE TYPE estado_convocatoria AS ENUM(
     'CERRADA'
 );
 
+CREATE TABLE rol (
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(50) UNIQUE NOT NULL
+);
+
 CREATE TABLE usuario (
     id BIGSERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL, /*evitar futuros errores por la ñ */
-    activo BOOLEAN NOT NULL DEFAULT TRUE
+    activo BOOLEAN NOT NULL DEFAULT TRUE,
+    rol_id BIGINT NOT NULL,
+    FOREIGN KEY (rol_id) REFERENCES rol(id)
 );
 
 CREATE TABLE alumno (
     id BIGSERIAL PRIMARY KEY,
-    usuario_id BIGINT UNIQUE, 
+    usuario_id BIGINT UNIQUE NOT NULL, 
     dni VARCHAR(20) UNIQUE NOT NULL,
     nacionalidad VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
@@ -41,19 +48,6 @@ CREATE TABLE alumno (
     discapacidad_detalle VARCHAR(300),
     CONSTRAINT fk_alumno_usuario
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
-);
-
-CREATE TABLE rol (
-    id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(50) UNIQUE NOT NULL
-);
-
-CREATE TABLE usuario_rol (
-    usuario_id BIGINT NOT NULL,
-    rol_id BIGINT NOT NULL,
-    PRIMARY KEY (usuario_id, rol_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-    FOREIGN KEY (rol_id) REFERENCES rol(id)
 );
 
 CREATE TABLE familiar (
