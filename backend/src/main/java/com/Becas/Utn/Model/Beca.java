@@ -1,9 +1,20 @@
 public class Beca {
     //Creacion de los atributos de la clase beca
-    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotNull
+    @Size(max = 150)
+    @Column(nullable = false, length = 150)
     private String nombre;
-    private String tipoBeca;
+
+    @NotNull
+    @Size(max = 30)
+    @Column(name = "tipo_beca", nullable = false, length = 30)
+    private String tipoBeca; //Nueva entidad ¿?
+
+    @Column(name = "requiere_ingenieria", nullable = false)
     private boolean requiereIngenieria;
 
 
