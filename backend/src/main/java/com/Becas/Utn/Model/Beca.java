@@ -1,3 +1,5 @@
+@Entity
+@Table(name = "beca")
 public class Beca {
     //Creacion de los atributos de la clase beca
     @Id 
