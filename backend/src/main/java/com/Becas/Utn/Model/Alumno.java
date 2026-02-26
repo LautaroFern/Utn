@@ -13,12 +13,12 @@ public class Alumno {
 
     @NotNull
     @Size(max = 20)
-    @Column (nullable = false, unique = true)
-    private Long dni;
+    @Column (nullable = false, unique = true, length = 20)
+    private String dni;
 
     @NotNull
     @Size(max = 50)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 50)
     private String nacionalidad;
 
     @NotNull
@@ -28,93 +28,93 @@ public class Alumno {
 
     @NotNull
     @Size(max = 100)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 100)
     private String carrera;
 
     @NotNull
     @Size(max = 300)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 300)
     private String domicilio;
 
     @NotNull
     @Size(max = 20)
-    @Column (nullable = false)
-    private String codigo_postal;
+    @Column (name = "codigo_postal", nullable = false, length = 20)
+    private String codigoPostal;
 
     @NotNull
     @Size(max = 100)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 100)
     private String localidad;
 
     @NotNull
     @Size(max = 100)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 100)
     private String provincia;
 
     @NotNull
     @Size(max = 100)
-    @Column (nullable = false)
-    private String ciudad_familia;
+    @Column (name = "ciudad_familia", nullable = false, length = 100)
+    private String ciudadFamilia;
 
     @NotNull
     @Size(max = 200)
-    @Column (nullable = false)
+    @Column (nullable = false, length = 200)
     private String vivienda;
 
     @NotNull
     @Size(max = 200)
-    @Column (nullable = false)
-    private String condicion_laboral;
+    @Column (name = "condicion_laboral", nullable = false, length = 200)
+    private String condicionLaboral;
 
     @NotNull
-    @Size(max = 100)
-    @Column (nullable = false)
+    @Size(max = 200)
+    @Column (nullable = false, length = 200)
     private String salud;
 
-    @NotNull
-    @Column (nullable = false)
-    private Boolean tiene_discapacidad;
+    @Column (name = "tiene_discapacidad", nullable = false)
+    private boolean tieneDiscapacidad;
 
     @Size(max = 300)
-    private String discapacidad_detalle;
+    @Column(name = "discapacidad_detalle", length = 300)
+    private String discapacidadDetalle;
 
     public Alumno(){
-        this.id = 0;
-        this.usuario = new Usuario();
-        this.dni = 0;
-        this.nacionalidad = "";
-        this.fechaNacimiento = LocalDate.now();
-        this.carrera = "";
-        this.domicilio = "";
-        this.codigo_postal = "";
-        this.localidad = "";
-        this.provincia = "";
-        this.ciudad_familia = "";
-        this.vivienda = "";
-        this.condicion_laboral = "";
-        this.salud = "";
-        this.tiene_discapacidad = false;
-        this.discapacidad_detalle = "";
+        // this.id = 0;
+        // this.usuario = new Usuario();
+        // this.dni = "";
+        // this.nacionalidad = "";
+        // this.fechaNacimiento = LocalDate.now();
+        // this.carrera = "";
+        // this.domicilio = "";
+        // this.codigo_postal = "";
+        // this.localidad = "";
+        // this.provincia = "";
+        // this.ciudad_familia = "";
+        // this.vivienda = "";
+        // this.condicion_laboral = "";
+        // this.salud = "";
+        // this.tiene_discapacidad = false;
+        // this.discapacidad_detalle = "";
     }
 
-    public Alumno(Usuario usuario, Long dni, String nacionalidad, LocalDate fechaNacimiento, String carrera, String domicilio,
-        String codigo_postal, String localidad, String provincia, String ciudad_familia, String vivienda, String condicion_laboral,
-        String salud, Boolean tiene_discapacidad, String discapacidad_detalle){
+    public Alumno(Usuario usuario, String dni, String nacionalidad, LocalDate fechaNacimiento, String carrera, String domicilio,
+        String codigoPostal, String localidad, String provincia, String ciudadFamilia, String vivienda, String condicionLaboral,
+        String salud, boolean tieneDiscapacidad, String discapacidadDetalle){
             this.usuario = usuario;
             this.dni = dni;
             this.nacionalidad = nacionalidad;
             this.fechaNacimiento = fechaNacimiento;
             this.carrera = carrera;
             this.domicilio = domicilio;
-            this.codigo_postal = codigo_postal;
+            this.codigoPostal = codigoPostal;
             this.localidad = localidad;
             this.provincia = provincia;
-            this.ciudad_familia = ciudad_familia;
+            this.ciudadFamilia = ciudadFamilia;
             this.vivienda = vivienda;
-            this.condicion_laboral = condicion_laboral;
+            this.condicionLaboral = condicionLaboral;
             this.salud = salud;
-            this.tiene_discapacidad = tiene_discapacidad;
-            this.discapacidad_detalle = discapacidad_detalle;
+            this.tieneDiscapacidad = tieneDiscapacidad;
+            this.discapacidadDetalle = discapacidadDetalle;
         }
 
     //Getters y Setters de la clase Alumno
@@ -134,11 +134,11 @@ public class Alumno {
             this.usuario = usuario;
         }
 
-        public Long getDni(){
+        public String getDni(){
             return dni;
         }
 
-        public void setDni(Long dni){
+        public void setDni(String dni){
             this.dni = dni;
         }
 
@@ -174,12 +174,12 @@ public class Alumno {
             this.domicilio = domicilio;
         }
 
-        public String getCodigo_Postal(){
-            return codigo_postal;
+        public String getCodigoPostal() {
+            return codigoPostal;
         }
 
-        public void setCodigo_Postal(String codigo_postal){
-            this.codigo_postal = codigo_postal;
+        public void setCodigoPostal(String codigoPostal) {
+            this.codigoPostal = codigoPostal;
         }
 
         public String getLocalidad(){
@@ -198,12 +198,13 @@ public class Alumno {
             this.provincia = provincia;
         }
 
-        public String getCiudad_Familia(){
-            return ciudad_familia;
+        
+        public String getCiudadFamilia() {
+            return ciudadFamilia;
         }
 
-        public void setCiudad_Familia(String ciudad_familia){
-            this.ciudad_familia = ciudad_familia;
+        public void setCiudadFamilia(String ciudadFamilia) {
+            this.ciudadFamilia = ciudadFamilia;
         }
 
         public String getVivienda(){
@@ -214,12 +215,13 @@ public class Alumno {
             this.vivienda = vivienda;
         }
 
-        public String getCondicion_Laboral(){
-            return condicion_laboral;
+        
+        public String getCondicionLaboral() {
+            return condicionLaboral;
         }
 
-        public void setCondicion_Laboral(String condicion_laboral){
-            this.condicion_laboral = condicion_laboral;
+        public void setCondicionLaboral(String condicionLaboral) {
+            this.condicionLaboral = condicionLaboral;
         }
 
         public String getSalud(){
@@ -230,21 +232,23 @@ public class Alumno {
             this.salud = salud;
         }
 
-        public Boolean getTiene_Discapacidad(){
-            return tiene_discapacidad;
+
+        public boolean isTieneDiscapacidad() {
+            return tieneDiscapacidad;
         }
 
-        public void setTiene_Discapacidad(Boolean tiene_discapacidad){
-            this.tiene_discapacidad = tiene_discapacidad;
+        public void setTieneDiscapacidad(boolean tieneDiscapacidad) {
+            this.tieneDiscapacidad = tieneDiscapacidad;
         }
 
-        public String getDiscapacidad_Detalle(){
-            return discapacidad_detalle;
+        public String getDiscapacidadDetalle() {
+            return discapacidadDetalle;
         }
 
-        public void setDiscapacidad_Detalle(String discapacidad_detalle){
-            this.discapacidad_detalle = discapacidad_detalle;
+        public void setDiscapacidadDetalle(String discapacidadDetalle) {
+            this.discapacidadDetalle = discapacidadDetalle;
         }
+
 
 //Equals y HashCode de la clase Alumno
     @Override

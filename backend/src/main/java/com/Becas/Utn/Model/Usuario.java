@@ -17,21 +17,21 @@ public class Usuario {
     private String apellido;
 
     @NotNull
+    @Email
     @Size(max = 100)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
     @NotNull
-    @Size(max = 225)
-    @Column (nullable = false)
+    @Size(max = 255)
+    @Column (nullable = false, length = 255)
     private String  password;
 
-    @NotNull
-    @DefaultValue(true)
-    private Boolean estado;
+    @Column (name = "estado", nullable = false)
+    private boolean estado;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "rol_id")
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
     
@@ -93,12 +93,20 @@ public class Usuario {
         this.password = password;
     }
 
-    public Boolean getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     // Metodos Equals , HashCode y ToString
