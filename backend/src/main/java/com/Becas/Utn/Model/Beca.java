@@ -12,9 +12,13 @@ public class Beca {
     private String nombre;
 
     @NotNull
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String descripcion;
+
+    @NotNull
     @Size(max = 30)
     @Column(name = "tipo_beca", nullable = false, length = 30)
-    private String tipoBeca; //Nueva entidad ¿?
+    private String tipoBeca; 
 
     @Column(name = "requiere_ingenieria", nullable = false)
     private boolean requiereIngenieria;
@@ -25,9 +29,9 @@ public class Beca {
 
     }
 
-    public Beca(Long id, String nombre, String tipoBeca, boolean requiereIngenieria) {
-        this.id = id;
+    public Beca(String nombre, String descripcion, String tipoBeca, boolean requiereIngenieria) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.tipoBeca = tipoBeca;
         this.requiereIngenieria = requiereIngenieria;
     }
@@ -45,6 +49,15 @@ public class Beca {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+  
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public String getTipoBeca() {
         return tipoBeca;
     }
@@ -58,5 +71,18 @@ public class Beca {
         this.requiereIngenieria = requiereIngenieria;
     }
 
-    //Equal y Hashcode
+    //Equal y Hashcode de la clase Beca
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof Beca)) return false;
+        Beca beca = (Beca) o;
+        return id != null && id.equals(beca.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+    
 }
