@@ -5,12 +5,36 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false)
     private String nombre;
+
+    @NotNull
+    @Size(max = 100)
+    @Column (nullable = false)
     private String apellido;
+
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @NotNull
+    @Size(max = 225)
     @Column (nullable = false)
     private String  password;
+
+    @NotNull
+    @DefaultValue(true)
     private Boolean estado;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
+
+    
 
     public Usuario(){
         this.nombre= "";
