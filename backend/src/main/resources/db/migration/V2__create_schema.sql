@@ -20,7 +20,7 @@ CREATE TABLE usuario (
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL, /*evitar futuros errores por la ñ */
-    activo BOOLEAN NOT NULL DEFAULT TRUE,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
     rol_id BIGINT NOT NULL,
     FOREIGN KEY (rol_id) REFERENCES rol(id)
 );
