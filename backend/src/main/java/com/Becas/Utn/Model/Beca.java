@@ -1,3 +1,14 @@
+package com.Becas.Utn.Model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 @Entity
 @Table(name = "beca")
 public class Beca {
@@ -49,7 +60,7 @@ public class Beca {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-  
+
     public String getDescripcion() {
         return descripcion;
     }
