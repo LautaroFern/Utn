@@ -34,6 +34,12 @@ public class Beca {
     @Column(name = "requiere_ingenieria", nullable = false)
     private boolean requiereIngenieria;
 
+    //CREAR RELACION  BIDIRECCIONAL CON CONVOCATORIA¿? 
+    //Modificar BDD EN CASO DE SER ASI (y crear mas uniones bidireccionales)
+    /*
+        @OneToMany(mappedBy = "beca", cascade = CascadeType.All)
+        private List<Convocatoria> convocatorias = new ArrayList<>();
+    */
 
     //Constructores
     public Beca () {
