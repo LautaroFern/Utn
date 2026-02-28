@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -32,7 +33,7 @@ public class Usuario {
     private String apellido;
 
     @NotNull
-
+    @Email
     @Size(max = 100)
     @Column(nullable = false, unique = true, length = 100)
     private String email;
