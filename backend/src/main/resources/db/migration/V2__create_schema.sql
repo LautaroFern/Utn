@@ -105,36 +105,32 @@ CREATE TABLE alumno_beca(
 
 CREATE TABLE estado_academico (
     id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
-    alumno_beca_id BIGINT NOT NULL,
+
+    /*Fuerza relacion 1:1, un solo estado academico para una postulacion.*/
+    alumno_beca_id BIGINT NOT NULL UNIQUE, 
     materias_aprobadas INT NOT NULL,
     materias_cursando INT NOT NULL,
     anio_ingreso INT NOT NULL,
     promedio DECIMAL(4,2) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
-        FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
+    FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
 );
 
 CREATE TABLE materia_cursando(
     id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
     alumno_beca_id BIGINT NOT NULL,
     nombre VARCHAR (100) NOT NULL,
     /* NIVEL EN EL QUE SE ENCUENTRA LA MATERIA QUE ESTA CURSANDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
     nivel VARCHAR (50) NOT NULL,
     regimen VARCHAR (100) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
-        FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
+    FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
 );
 
 CREATE TABLE final_planificado(
     id BIGSERIAL PRIMARY KEY,
-    alumno_id BIGINT NOT NULL,
     alumno_beca_id BIGINT NOT NULL,
     nombre_materia VARCHAR (100) NOT NULL,
     /* NIVEL EN EL QUE SE ENCUENTRA EL FINAL QUE ESTA RINDIENDO (Primer año Primer Cuatrimestre/ Primer año Segundo Cuatrimestre).... */
     nivel VARCHAR (50) NOT NULL,
     mes_mesa VARCHAR (20) NOT NULL,
-    FOREIGN KEY (alumno_id) REFERENCES alumno(id),
     FOREIGN KEY (alumno_beca_id) REFERENCES alumno_beca(id)
 );
