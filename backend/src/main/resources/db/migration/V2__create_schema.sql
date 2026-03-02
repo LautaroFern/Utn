@@ -56,10 +56,11 @@ CREATE TABLE familiar (
     alumno_id BIGINT NOT NULL, 
     nombre VARCHAR (100) NOT NULL,
     apellido VARCHAR (100) NOT NULL,
-    dni VARCHAR(20) UNIQUE NOT NULL,
+    dni VARCHAR(20) NOT NULL,
     parentesco_alumno VARCHAR(50) NOT NULL, 
     ocupacion VARCHAR(300) NOT NULL, 
     ingreso DECIMAL(10,2) NOT NULL,
+    UNIQUE (alumno_id, dni),
     FOREIGN KEY (alumno_id) REFERENCES alumno(id)
 );
 
